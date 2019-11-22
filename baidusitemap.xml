@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://newgeek.coding.me/blog/2019/11/22/NVMain%E5%92%8CGem5%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2019-11-22</lastmod>
+  </url>  <url>
+    <loc>http://newgeek.coding.me/blog/2019/08/27/word2vec%E4%B8%AA%E4%BA%BA%E8%A7%81%E8%A7%A3/</loc>
+    <lastmod>2019-08-28</lastmod>
+  </url>  <url>
     <loc>http://newgeek.coding.me/blog/2019/03/24/hello-world/</loc>
     <lastmod>2019-03-24</lastmod>
   </url>

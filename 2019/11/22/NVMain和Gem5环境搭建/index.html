@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="系统结构,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="钻进了代码的时候,迷失了自我,只想尽情的翱翔">
-<meta name="keywords" content="学生党,技术宅">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://newgeek.coding.me/blog/categories/index.html">
+<meta name="description" content="1. 前沿这个是华科研究生课程计算机系统设计一个实验,做完整个实验大约花了两天多的时间吧,其中也是遇到了很多问题,想在博客中记录下来,日后若是能够帮助师弟师妹们或者其他的博友,便不负这篇博客的作用. 2. NVMain环境搭建2.1 下载NVMain 下载的网址, https://bitbucket.org/mrp5060/nvmain/src/default/  下载nvmain,并解压,将解压">
+<meta name="keywords" content="系统结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NVMain和Gem5环境搭建">
+<meta property="og:url" content="http://newgeek.coding.me/blog/2019/11/22/NVMain和Gem5环境搭建/index.html">
 <meta property="og:site_name" content="金际一线天">
-<meta property="og:description" content="钻进了代码的时候,迷失了自我,只想尽情的翱翔">
+<meta property="og:description" content="1. 前沿这个是华科研究生课程计算机系统设计一个实验,做完整个实验大约花了两天多的时间吧,其中也是遇到了很多问题,想在博客中记录下来,日后若是能够帮助师弟师妹们或者其他的博友,便不负这篇博客的作用. 2. NVMain环境搭建2.1 下载NVMain 下载的网址, https://bitbucket.org/mrp5060/nvmain/src/default/  下载nvmain,并解压,将解压">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-24T03:56:24.357Z">
+<meta property="og:image" content="http://newgeek.coding.me/.me//11/22/NVMain和Gem5环境搭建/nvmain.png">
+<meta property="og:updated_time" content="2019-11-22T06:13:56.697Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="钻进了代码的时候,迷失了自我,只想尽情的翱翔">
+<meta name="twitter:title" content="NVMain和Gem5环境搭建">
+<meta name="twitter:description" content="1. 前沿这个是华科研究生课程计算机系统设计一个实验,做完整个实验大约花了两天多的时间吧,其中也是遇到了很多问题,想在博客中记录下来,日后若是能够帮助师弟师妹们或者其他的博友,便不负这篇博客的作用. 2. NVMain环境搭建2.1 下载NVMain 下载的网址, https://bitbucket.org/mrp5060/nvmain/src/default/  下载nvmain,并解压,将解压">
+<meta name="twitter:image" content="http://newgeek.coding.me/.me//11/22/NVMain和Gem5环境搭建/nvmain.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://newgeek.coding.me/blog/categories/">
+  <link rel="canonical" href="http://newgeek.coding.me/blog/2019/11/22/NVMain和Gem5环境搭建/">
 
 
 
 
 
-  <title>categories | 金际一线天</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>NVMain和Gem5环境搭建 | 金际一线天</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -241,40 +243,221 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://newgeek.coding.me/blog/2019/11/22/NVMain和Gem5环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄世财">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="金际一线天">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                目前共计 1 个分类
+          <h1 class="post-title" itemprop="name headline">NVMain和Gem5环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-22T13:10:58+08:00">
+                2019-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/22/NVMain和Gem5环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/22/NVMain和Gem5环境搭建/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/22/NVMain和Gem5环境搭建/" class="leancloud_visitors" data-flag-title="NVMain和Gem5环境搭建">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  451
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="1-前沿"><a href="#1-前沿" class="headerlink" title="1. 前沿"></a>1. 前沿</h2><p>这个是华科研究生课程<code>计算机系统设计</code>一个实验,做完整个实验大约花了两天多的时间吧,其中也是遇到了很多问题,想在博客中记录下来,日后若是能够帮助师弟师妹们或者其他的博友,便不负这篇博客的作用.</p>
+<h2 id="2-NVMain环境搭建"><a href="#2-NVMain环境搭建" class="headerlink" title="2. NVMain环境搭建"></a>2. NVMain环境搭建</h2><h3 id="2-1-下载NVMain"><a href="#2-1-下载NVMain" class="headerlink" title="2.1 下载NVMain"></a>2.1 下载<code>NVMain</code></h3><ul>
+<li>下载的网址, <a href="https://bitbucket.org/mrp5060/nvmain/src/default/" target="_blank" rel="noopener">https://bitbucket.org/mrp5060/nvmain/src/default/</a></li>
+</ul>
+<p>下载<code>nvmain</code>,并解压,将解压后目录的名字更改为<code>nvmain</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://bitbucket.org/mrp5060/nvmain/get/9c0e87b164bc.zip -O nvmain.zip</span><br><span class="line">unzip nvmain.zip</span><br><span class="line">mv mrp5060-nvmain-9c0e87b164bc nvmain</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-NVMain编译"><a href="#2-2-NVMain编译" class="headerlink" title="2.2 NVMain编译"></a>2.2 <code>NVMain</code>编译</h3><ul>
+<li>安装编译工具<code>scons</code>, <code>scons</code>是一个开放源码、以Python语言编码的自动化构建工具，可用来替代make编写复杂的makefile。并且scons是跨平台的，只要scons脚本写的好，可以在Linux和Windows下随意编译。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install scons</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编译<code>NVMain</code>,其中编译的类型可以选择<code>fast|debug|prof</code>三种的任意一种,这里我们选用<code>fast</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scons --build-type=fast</span><br></pre></td></tr></table></figure>
+
+<p>如果在编译的过程中,报了如下的错误,无须紧张,这只是个小问题,是因为我们暂时还没有用到<code>gem5</code>,所以只需将这个报错的那一行代码注释即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">scons: Reading SConscript files ...</span><br><span class="line">ImportError: No module named gem5_scons:</span><br><span class="line">  File &quot;/home/greek/master/experiment/nvmain/SConstruct&quot;, line 253:</span><br><span class="line">    SConscript(joinpath(root, &apos;SConscript&apos;), variant_dir=build_dir)</span><br><span class="line">  File &quot;/usr/lib/scons/SCons/Script/SConscript.py&quot;, line 614:</span><br><span class="line">    return method(*args, **kw)</span><br><span class="line">  File &quot;/usr/lib/scons/SCons/Script/SConscript.py&quot;, line 551:</span><br><span class="line">    return _SConscript(self.fs, *files, **subst_kw)</span><br><span class="line">  File &quot;/usr/lib/scons/SCons/Script/SConscript.py&quot;, line 256:</span><br><span class="line">    call_stack[-1].globals)</span><br><span class="line">  File &quot;/home/greek/master/experiment/nvmain/build/SConscript&quot;, line 36:</span><br><span class="line">    from gem5_scons import Transform</span><br></pre></td></tr></table></figure>
+
+<p>具体的解决办法是将<code>nvmain/build/SConscript</code>中的第<code>36</code>行注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># from gem5_scons import Transform # 这行注释</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解决错误之后,再重新编译</li>
+</ul>
+<img src="/.me//11/22/NVMain和Gem5环境搭建/nvmain.png" title="编译成功标识">
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/系统结构/" rel="tag"><i class="fa fa-tag"></i> 系统结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/27/word2vec个人见解/" rel="next" title="word2vec个人见解">
+                <i class="fa fa-chevron-left"></i> word2vec个人见解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -310,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -389,6 +581,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前沿"><span class="nav-number">1.</span> <span class="nav-text">1. 前沿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-NVMain环境搭建"><span class="nav-number">2.</span> <span class="nav-text">2. NVMain环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-下载NVMain"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 下载NVMain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NVMain编译"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NVMain编译</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
