@@ -83,4 +83,5 @@ NexT.utils.getAffixParam = function() {
 document.addEventListener('DOMContentLoaded', () => {
 
   Affix.init(document.querySelector('.sidebar-inner'), NexT.utils.getAffixParam());
+  Affix.init(document.querySelector('.sidebar-blogroll'), NexT.utils.getAffixParam());
 });

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Memcached源码分析-源码阅读技巧</title>
+    <url>/2024/05/25/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在真正进入memcached的源码分析之前，我想先分享一下自己在源码阅读中遇到的一些困难与障碍，以及我是如何进行克服的，并从中悟到的一些源码阅读方面的技巧，希望对正在阅读开源项目处于迷茫中的你有些许的帮助。</p>
+<p>在初入开源项目阅读之前，不少人心中肯定会有跟我一样的困惑，怎么挑选开源项目，如何进行阅读（是否需要逐行都去理解），把握不住大型项目的脉络，直接将很多人在步入的第一天就进行了劝退。在网络上搜索了不少如何进行源码阅读的文章，但是太多都差强人意，并没有太多实质性的建议，于是便将自己在源码阅读上的一些心得与大家分享。</p>
+<span id="more"></span>
+
+<h2 id="开源项目选择"><a href="#开源项目选择" class="headerlink" title="开源项目选择"></a>开源项目选择</h2><p>步入源码阅读的第一步，便是挑选一个适合自己的开源项目。根据自己的能力和感兴趣的领域，挑选一个可以掌控的项目，不要妄想一口气吃下一个胖子，这样只会增加阅读的挫败感。如果不知道阅读什么项目，可以从下面的链接中，找找是否有合适的。</p>
+<ul>
+<li><a href="https://www.zhihu.com/question/20124494">c&#x2F;c++网络编程</a></li>
+<li><a href="https://github.com/fffaraz/awesome-cpp">awesome-cpp</a></li>
+<li><a href="https://github.com/practical-tutorials/project-based-learning">project-based-learning</a></li>
+</ul>
+<p>至于我选择memcached作为我的一个真正深入阅读的源码项目，原因有如下几点：</p>
+<ol>
+<li>缓存作为系统设计中的重要一个组件，但是实际工作其实有很多类型的缓存组件，理解memcached的设计对于我理解其他的缓存系统有着更进一步的认识。</li>
+<li>理解网络编程设计（event_loop），多线程编程（线程之间通信），slab内存分配器。</li>
+<li>memcached的项目不大，总共代码也就几千，属于在我能够掌控的范围。</li>
+</ol>
+<h2 id="开源项目阅读"><a href="#开源项目阅读" class="headerlink" title="开源项目阅读"></a>开源项目阅读</h2><p>在挑选完合适自己的开源项目之后，首先需要明确项目的核心要义，是为了解决什么问题而研发的，以及运用的场景。</p>
+<p>Memcached是基于内存的key-value存储系统，主要用于数据的缓存。</p>
+<h3 id="项目跑起来"><a href="#项目跑起来" class="headerlink" title="项目跑起来"></a>项目跑起来</h3><p>在进入源码阅读之前，首当其冲地就是要将项目跑起来，明白该项目是如何使用的。以Memcached为例，将项目的源代码克隆到本地：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/memcached/memcached.git</span><br></pre></td></tr></table></figure>
+
+<p>在<code>BUILD</code>文件中，项目的作者已经给出了如何进行编译，以及需要安装哪些依赖.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install autotools-dev</span><br><span class="line">sudo apt-get install automake</span><br><span class="line">sudo apt-get install libevent-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># MacOs中如果编译过程中报错了，看看是否是因为没有安装 pkg-config</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保下面的命令是在memcached目录下执行的</span></span><br><span class="line">./autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>完成上面的过程之后，就算将memcached编译好。现在将服务端给运行起来，以及通过客户端与服务端进行连接通信。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 服务端运行</span></span><br><span class="line">./memcached</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以使用telnet作为客户端，因为telnet程序与服务器的交互过程，正好是建立了一条与服务通信的tcp连接，并接收键盘的字符输入，发送给服务器程序，并将响应结果返回给客户端。</span></span><br><span class="line"><span class="comment"># memcached服务端程序是支持文本协议和二进制两种交互协议</span></span><br><span class="line"></span><br><span class="line">telet localhost 11211</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面是在telnet中执行的命令</span></span><br><span class="line"><span class="built_in">set</span> foo 0 0 3</span><br><span class="line">bar</span><br><span class="line">STORED</span><br><span class="line">get foo</span><br><span class="line">bar</span><br><span class="line">END</span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
+<p>到此为止，项目已经正常跑起来了，并使用了其中两个最为基础的命令，<code>set</code>和<code>get</code>命令，分别用于设置缓存数据，以及获取缓存数据。</p>
+<h3 id="项目初始版本"><a href="#项目初始版本" class="headerlink" title="项目初始版本"></a>项目初始版本</h3><p>任何一个开源项目，在成熟稳定之后都是考虑了各种边界情况以及为了提升系统的性能，做了各种性能的优化。在这种情况下，直接去阅读对应的源码，复杂的边界情况以及性能优化的设计都会对我们理解整个项目的脉络造成一定的障碍。</p>
+<p>因此，这里并不建议直接从master版本中进行阅读，而是建议从一个初始稳定的版本进行阅读，这样项目本身并不复杂，项目设计也刚好能完成对应的目标而已。</p>
+<p>git的标签能力正是我们所需要的。比较有代表性的是人们会使用这个功能来标记一些发布节点（v1.0，v2.0等等）。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列出当前已有的标签</span></span><br><span class="line">&gt; git tag</span><br><span class="line">1.2.0</span><br><span class="line">1.2.1</span><br><span class="line">1.2.2</span><br><span class="line">1.2.3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到某个特定版本的代码</span></span><br><span class="line"><span class="comment"># -b 表示创建一个分支</span></span><br><span class="line">&gt; git checkout 1.2.0 -b test-version-1.2.0</span><br></pre></td></tr></table></figure>
+
+<p>想要了解git标签，可以查看这篇文章：<a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE">Git基础-打标签</a></p>
+<h3 id="项目配置跳转"><a href="#项目配置跳转" class="headerlink" title="项目配置跳转"></a>项目配置跳转</h3><p>在阅读源码的时候，经常会碰到函数的调用位置，跟函数的定义位置完全不在同一个地方。如果每次都去手动查找的话，那就有点太浪费时间。这边建议用vscode来阅读源码，并配合插件来实现函数之间的跳转。</p>
+<p>vscode中需要安装的插件列表:</p>
+<ul>
+<li>C&#x2F;C++</li>
+<li>clangd</li>
+</ul>
+<p>有了上面两个插件之后，其实大部分的函数跳转已经能够实现了。但是C++本身语法过于复杂，继承和重载使得函数跳转变得更加复杂，这个时候就需要一个能够告诉clang是如何进行编译源文件的。</p>
+<p>编译数据库(<code>compile_commands.json</code>)正是我们所需要的，里面记录了每个源文件对应的编译命令。有了编译数据库之后，就可以从clang编译器中获取最详细的数据，使得代码跳转和自动补全更加精准。</p>
+<p>可以参考这篇文章来生成<code>compile_commands.json</code>文件：<a href="https://edward852.github.io/post/%E7%94%9F%E6%88%90compile_commands.json%E6%96%87%E4%BB%B6/">生成compile_commands.json</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># MacOS中安装bear</span></span><br><span class="line">&gt; brew install bear</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成compile_commands.json</span></span><br><span class="line"><span class="comment"># 在memcached目录下执行该命令，前提是已经生成了Makefile文件（如何生成，在代码跑起来中讲了）</span></span><br><span class="line">&gt; bear -- make</span><br></pre></td></tr></table></figure>
+<h3 id="借助工具配合阅读"><a href="#借助工具配合阅读" class="headerlink" title="借助工具配合阅读"></a>借助工具配合阅读</h3><p>在阅读源码的时候，难免会遇到对某个设计或者某个函数的逻辑不太理解，但是这个时候通过搜索引擎也比较难去获得别人专门针对这段函数的注解。遇到这种情况，我的做法是直接在在<code>gpt-4.0</code>中询问某个函数的作用，以及为啥需要这样来实现。虽然<code>gpt</code>不一定能够给出来完全正确的答案，但是经常会给在阅读过程中的困扰，提供一些独特的思路，然后再结合自己的一些思考以及查阅资料，就大概能够作者在背后的思考逻辑了。</p>
+<p>如果不能访问<code>gpt-4.0</code>之类的服务，国内的大模型还是很多的，百度的文心一言，月之暗面的kimi，阿里的通义千问都是不错的替代品。</p>
+<h3 id="源码阅读输出"><a href="#源码阅读输出" class="headerlink" title="源码阅读输出"></a>源码阅读输出</h3><p>如果只是看完了代码的话，其实是非常容易忘记的，并且理解的并不深刻。我这边建议在阅读源码的过程中，就不断输出。这里的输出并不是指的是写成文章，可供他人阅读似的输出。而是以一种自己能够理解和看懂的方式，记录下自己在阅读过程中的一些体会。比如这里某个功能是如何设计的，具体怎么实现的。</p>
+<p>这里的记录可以是以文字 + 流程图的形式来进行输出，通过流程图可以对整个功能的设计有一个大致的脉络，并通过文字对其中某个功能进行详细的补充。</p>
+<p>当然，当面的输出形式还只是为了简单记录自己在阅读过程的思考，在项目阅读完成之后，我们已经对整个项目有了一个整体的了解，能够以一个全局的视角来进行审视，看看自己输出的内容是否正确。这个阶段之后，就可以真正地输出文章来总结提炼知识，将你学到的东西教会给其他人。</p>
+<hr>
+<p>到了这里，就可以开启你的源码阅读之旅了，尽量多去读优秀的源码，了解背后的设计思想，将自己的编码实力提升一个台阶。</p>
+]]></content>
+      <categories>
+        <category>Memcached源码分析</category>
+      </categories>
+      <tags>
+        <tag>源码分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Memcached源码分析-初识网络编程</title>
+    <url>/2024/05/29/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%88%9D%E8%AF%86%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Memcached源码分析</category>
+      </categories>
+      <tags>
+        <tag>源码分析</tag>
+        <tag>网络编程</tag>
+      </tags>
+  </entry>
+</search>

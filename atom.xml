@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>码上见解</title>
+  
+  <subtitle>沉迷在技术的海洋中无法自拔</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2024-05-29T00:26:15.129Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>金色天际线</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Memcached源码分析-初识网络编程</title>
+    <link href="http://example.com/2024/05/29/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%88%9D%E8%AF%86%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    <id>http://example.com/2024/05/29/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%88%9D%E8%AF%86%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</id>
+    <published>2024-05-29T00:08:21.000Z</published>
+    <updated>2024-05-29T00:26:15.129Z</updated>
+    
+    
+    
+    
+    <category term="Memcached源码分析" scheme="http://example.com/categories/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="源码分析" scheme="http://example.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    <category term="网络编程" scheme="http://example.com/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Memcached源码分析-源码阅读技巧</title>
+    <link href="http://example.com/2024/05/25/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8A%80%E5%B7%A7/"/>
+    <id>http://example.com/2024/05/25/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8A%80%E5%B7%A7/</id>
+    <published>2024-05-25T05:06:18.000Z</published>
+    <updated>2024-06-02T07:52:30.784Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在真正进入memcached的源码分析之前，我想先分享一下自己在源码阅读中遇到的一些困难与障碍，以及我是如何进行克服的，并从中悟到的一些源码阅读方面的技巧，希望对正在阅读开源项目处于迷茫中的你有些许的帮助。&lt;/p&gt;
+&lt;p&gt;在初入开源项目阅读之前，不少人心中肯定会有跟我一样的困惑，怎么挑选开源项目，如何进行阅读（是否需要逐行都去理解），把握不住大型项目的脉络，直接将很多人在步入的第一天就进行了劝退。在网络上搜索了不少如何进行源码阅读的文章，但是太多都差强人意，并没有太多实质性的建议，于是便将自己在源码阅读上的一些心得与大家分享。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Memcached源码分析" scheme="http://example.com/categories/Memcached%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+    <category term="源码分析" scheme="http://example.com/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+</feed>
